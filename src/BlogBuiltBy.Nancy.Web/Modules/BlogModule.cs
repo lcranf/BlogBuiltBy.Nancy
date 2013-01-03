@@ -1,5 +1,4 @@
-﻿using System;
-using Nancy;
+﻿using Nancy;
 
 namespace BlogBuiltBy.Nancy.Web.Modules
 {
