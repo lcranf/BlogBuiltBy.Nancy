@@ -19,18 +19,33 @@ namespace BlogBuiltBy.Nancy.Web.Modules
         public BlogModule()
             : base("/blog")
         {
-            Get["/"] = All; 
+            Get["/"] = List; 
             Post["/add"] = Add;
-            Get["/id/{id}"] = Id;   
+            Put["/update"] = Update;
+            Post["/delete/{id}"] = Delete;
+            Get["/{id}"] = FindById;   
         }
 
-        private dynamic Id(dynamic parameters)
+        private new dynamic Delete(dynamic o)
         {
-            return Response.AsJson(new { IsValid = true, parameters.Id });
+            throw new NotImplementedException();
         }
 
+        private dynamic Update(dynamic o)
+        {
+            throw new NotImplementedException();
+        }
 
-        private dynamic All(dynamic parameters)
+        private dynamic FindById(dynamic parameters)
+        {
+            using (var db = _dbFactory.OpenDbConnection())
+            {
+                var blog = db.GetByIdOrDefault<Blog>((long) parameters.id);
+                return Response.AsJson(new { IsValid = true, Blog = blog }); 
+            }
+        }
+
+        private dynamic List(dynamic parameters)
         {
             using (var db = _dbFactory.OpenDbConnection())
             {
