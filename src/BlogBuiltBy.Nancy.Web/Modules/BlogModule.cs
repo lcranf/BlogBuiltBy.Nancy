@@ -19,19 +19,30 @@ namespace BlogBuiltBy.Nancy.Web.Modules
         public BlogModule()
             : base("/blog")
         {
-            Get["/"] = List; 
-            Post["/add"] = Add;
-            Put["/update"] = Update;
-            Post["/delete/{id}"] = Delete;
+            Get["/"] = ListBlogs; 
+            Post["/add"] = AddBlog;
+            Put["/update"] = UpdateBlog;
+            Post["/delete/{id}"] = DeleteBlog;
             Get["/{id}"] = FindById;   
         }
 
-        private new dynamic Delete(dynamic o)
+        private dynamic DeleteBlog(dynamic parameters)
         {
-            throw new NotImplementedException();
+            var blogId = (long) parameters.id;
+
+            using (var db = _dbFactory.OpenDbConnection())
+            {
+                db.DeleteById<Blog>(blogId);
+            }
+
+            return Response.AsJson(new
+                {
+                    IsValid = true,
+                    Message = string.Format("Deleted Blog with id of {0}", blogId)
+                });
         }
 
-        private dynamic Update(dynamic o)
+        private dynamic UpdateBlog(dynamic parameters)
         {
             throw new NotImplementedException();
         }
@@ -45,7 +56,7 @@ namespace BlogBuiltBy.Nancy.Web.Modules
             }
         }
 
-        private dynamic List(dynamic parameters)
+        private dynamic ListBlogs(dynamic parameters)
         {
             using (var db = _dbFactory.OpenDbConnection())
             {
@@ -54,7 +65,7 @@ namespace BlogBuiltBy.Nancy.Web.Modules
             }
         }
 
-        private dynamic Add(dynamic parameters)
+        private dynamic AddBlog(dynamic parameters)
         {
             var blog = this.Bind<Blog>();
 
