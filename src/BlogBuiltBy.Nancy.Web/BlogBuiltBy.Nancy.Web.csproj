@@ -94,7 +94,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Global.asax" />
     <None Include="Views\Blog\Blogs.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -107,9 +106,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
     <Compile Include="Infrastructure\WebBootstrapper.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Modules\BlogModule.cs" />

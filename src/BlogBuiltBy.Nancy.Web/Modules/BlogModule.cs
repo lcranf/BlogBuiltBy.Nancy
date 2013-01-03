@@ -19,11 +19,18 @@ namespace BlogBuiltBy.Nancy.Web.Modules
         public BlogModule()
             : base("/blog")
         {
-            Get["/"] = List; 
-            Post["/add"] = AddBlog;
+            Get["/"] = All; 
+            Post["/add"] = Add;
+            Get["/id/{id}"] = Id;   
         }
 
-        private dynamic List(dynamic parameters)
+        private dynamic Id(dynamic parameters)
+        {
+            return Response.AsJson(new { IsValid = true, parameters.Id });
+        }
+
+
+        private dynamic All(dynamic parameters)
         {
             using (var db = _dbFactory.OpenDbConnection())
             {
@@ -32,7 +39,7 @@ namespace BlogBuiltBy.Nancy.Web.Modules
             }
         }
 
-        private dynamic AddBlog(dynamic parameters)
+        private dynamic Add(dynamic parameters)
         {
             var blog = this.Bind<Blog>();
 

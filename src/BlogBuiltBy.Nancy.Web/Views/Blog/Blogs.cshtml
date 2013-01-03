@@ -1,6 +1,5 @@
-﻿@using System.Linq
-
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<IEnumerable<Blog>>
+﻿
+@inherits NancyRazorViewBase<IEnumerable<Blog>>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -16,6 +15,7 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Created On</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +30,7 @@
                         <td>@blog.Id</td>
                         <td>@blog.Name</td>
                         <td>@blog.CreatedOn</td>
+                        <td>None</td>
                     </tr>
                 }
             </tbody>
