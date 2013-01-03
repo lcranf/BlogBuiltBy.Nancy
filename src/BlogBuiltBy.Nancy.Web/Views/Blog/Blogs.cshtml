@@ -1,0 +1,40 @@
+﻿@using System.Linq
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<IEnumerable<Blog>>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <div>
+       
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Created On</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="3">No Blogs Available</td></tr>
+                }
+                
+                @foreach (var blog in Model)
+                {
+                    <tr>
+                        <td>@blog.Id</td>
+                        <td>@blog.Name</td>
+                        <td>@blog.CreatedOn</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
